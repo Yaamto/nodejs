@@ -1,4 +1,4 @@
-##Exercice
+## Exercice
 
 Créez une base de données sample nommée "sample_db" et une collection appelée "employees".
 Insérez les documents suivants dans la collection "employees":
@@ -26,31 +26,31 @@ Insérez les documents suivants dans la collection "employees":
 
 Écrivez une requête MongoDB pour trouver tous les documents dans la collection "employees".
 
-db.employees.find()
+-db.employees.find()
 
 Écrivez une requête pour trouver tous les documents où l'âge est supérieur à 33.
 
-db.employees.find({"age": {$gt: 33}})
+-db.employees.find({"age": {$gt: 33}})
 
 Écrivez une requête pour trier les documents dans la collection "employees" par salaire décroissant.
 
-db.employees.find().sort({"salary": -1})
+-db.employees.find().sort({"salary": -1})
 
 Écrivez une requête pour sélectionner uniquement le nom et le job de chaque document.
 
-db.employees.find({}, {"name": 1, "job": 1, "_id": 0})
+-db.employees.find({}, {"name": 1, "job": 1, "_id": 0})
 
 Écrivez une requête pour compter le nombre d'employés par poste.
 
 Écrivez une requête pour mettre à jour le salaire de tous les développeurs à 80000.
 
-db.employee.updateMany(  { job: "Developer" },  { $set: { "salary": 80000 } } )
+-db.employee.updateMany(  { job: "Developer" },  { $set: { "salary": 80000 } } )
 
 
 
 
 
-##COURS
+## COURS
 
 --listez les documents pour lesquels l’âge est soit égal à 76 ans
 
