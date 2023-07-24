@@ -41,7 +41,8 @@ Insérez les documents suivants dans la collection "employees":
 -db.employees.find({}, {"name": 1, "job": 1, "_id": 0})
 
 Écrivez une requête pour compter le nombre d'employés par poste.
-db.employees.aggregate([
+
+-db.employees.aggregate([
   {
     $group: {
       _id: "$job",
