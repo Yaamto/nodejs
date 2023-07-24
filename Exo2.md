@@ -140,9 +140,21 @@ En mode upsert, vous mettrez à jour tous les documents dont le nom commence par
 
 Affichez le décompte des documents pour lesquels le champ _id est de type « objectId ».
 
+-db.salles.find({ "_id": { $type: "objectId" } }).count()
+
+
 ## Exercice 22
 
 Pour les documents dont le champ _id n’est pas de type « objectId », affichez le nom de la salle ayant la plus grande capacité. Pour y parvenir, vous effectuerez un tri dans l’ordre qui convient tout en limitant le nombre de documents affichés pour ne retourner que celui qui comporte la capacité maximale.
+
+-db.salles.find({
+  "_id": {
+    $type: "objectId"
+  }
+},
+{
+  "nom": 1
+}).sort({ "capacite": -1 }).limit(1)
 
 ## Exercice 23
 
