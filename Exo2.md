@@ -28,9 +28,14 @@ Affichez l’identifiant puis le nom des salles qui ont exactement un avis.
 
 Affichez tous les styles musicaux des salles qui programment notamment du blues.
 
+-db.salles.find({ "styles": "blues" }, { "styles": 1 })
+
 ## Exercice 6
 
 Affichez tous les styles musicaux des salles qui ont le style « blues » en première position dans leur tableau styles.
+
+-db.salles.find({ "styles.0": "blues" }, { "styles": 1 })
+
 
 ## Exercice 7
 
@@ -40,17 +45,39 @@ Affichez la ville des salles dont le code postal commence par 84 et qui ont une 
 
 Affichez l’identifiant pour les salles dont l’identifiant est pair ou le champ avis est absent.
 
+-db.salles.find({
+  $or: [
+    { "_id": { $mod: [2, 0] } },
+    { "avis": { $exists: false } }
+  ]
+}, { "_id": 1 })
+
+
 ##Exercice 9
 
 Affichez le nom des salles dont au moins un des avis comporte une note comprise entre 8 et 10 (tous deux inclus).
+
+-db.salles.find({
+  "avis": { $elemMatch: { "note": { $gte: 8, $lte: 10 } } }
+}, { "nom": 1 })
+
 
 ## Exercice 10
 
 Affichez le nom des salles dont au moins un des avis comporte une date postérieure au 15/11/2019 (pensez à utiliser le type JavaScript Date).
 
+-db.salles.find({
+  "avis": { $elemMatch: { "date": { $gt: new Date("2019-11-15") } } }
+}, { "nom": 1 })
+
 ## Exercice 11
 
 Affichez le nom ainsi que la capacité des salles dont le produit de la valeur de l’identifiant par 100 est strictement supérieur à la capacité.
+
+-db.salles.find({
+  $expr: { $gt: [{ $multiply: ["$_id", 100] }, "$capacite"] }
+}, { "nom": 1, "capacite": 1 })
+
 
 ## Exercice 12
 
@@ -60,21 +87,33 @@ Affichez le nom des salles de type SMAC programmant plus de deux styles de musiq
 
 Affichez les différents codes postaux présents dans les documents de la collection salles.
 
+-db.salles.distinct("adresse.codePostal")
+
+
 ## Exercice 14
 
 Mettez à jour tous les documents de la collection salles en rajoutant 100 personnes à leur capacité actuelle.
+
+-db.salles.updateMany({}, { $inc: { "capacite": 100 } })
+
 
 ## Exercice 15
 
 Ajoutez le style « jazz » à toutes les salles qui n’en programment pas.
 
+-db.salles.updateMany({ "styles": { $exists: false } }, { $set: { "styles": ["jazz"] } })
+
 ## Exercice 16
 
 Retirez le style «funk» à toutes les salles dont l’identifiant n’est égal ni à 2, ni à 3.
 
+-db.salles.updateMany({ "_id": { $nin: [2, 3] } }, { $pull: { "styles": "funk" } })
+
 ## Exercice 17
 
 Ajoutez un tableau composé des styles «techno» et « reggae » à la salle dont l’identifiant est 3.
+
+-db.salles.updateOne({ "_id": 3 }, { $push: { "styles": { $each: ["techno", "reggae"] } } })
 
 ## Exercice 18
 
@@ -87,6 +126,15 @@ Pour les salles dont le nom commence par une voyelle (peu importe la casse, là 
 ## Exercice 20
 
 En mode upsert, vous mettrez à jour tous les documents dont le nom commence par un z ou un Z en leur affectant comme nom « Pub Z », comme valeur du champ capacite 50 personnes (type entier et non décimal) et en positionnant le champ booléen smac à la valeur « false ».
+
+-db.salles.updateMany(
+  { "nom": { $regex: /^[zZ]/ } },
+  {
+    $set: { "nom": "Pub Z", "capacite": 50, "smac": false }
+  },
+  { upsert: true }
+)
+
 
 ## Exercice 21
 
