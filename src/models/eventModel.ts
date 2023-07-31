@@ -1,7 +1,18 @@
 import mongoose from "mongoose";
 import { IUser } from "./userModel";
 import { IAdress } from "./adressModel";
+import joi from "joi";
+import * as joiDate from "@joi/date";
+const Joi = joi.extend(joiDate.default(joi)) as typeof joi;
 
+//validation schema
+export const EventSchemaValidate = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string().required(),
+    adress: Joi.string().required(),
+    capacity: Joi.number().required(),
+    date: Joi.date().format("YYYY-MM-DD").required(),
+});
 export interface IEvent {
     _id: String;
     name: String;
@@ -23,18 +34,8 @@ const EventSchema = new mongoose.Schema(
             required: [true, "Description is required"],
         },
         adress: {
-            number: {
-                type: Number,
-            },
-            street: {
-                type: String,
-            },
-            city: {
-                type: String,
-            },
-            zipcode: {
-                type: Number,
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "adress",
         },
         capacity: {
             type: Number,
