@@ -2,7 +2,7 @@
 
 ## Architecture du projet
 
-Pour le projet nous nous sommes inspirées du pattern MVC.
+Pour le projet nous nous sommes inspirés du pattern MVC.
 
 ```
 |_logs         --> Fichiers log
@@ -23,7 +23,7 @@ Pour le projet nous nous sommes inspirées du pattern MVC.
 
 Pour chaque collection il y un contrôleur, un service et un modèle.
 
-## Modèle de donnée
+## Modèle de données
 
 ```
 export interface IAdress {
