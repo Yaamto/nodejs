@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
+
 const authRoute = require("./routes/authRoute");
 const eventRoute = require("./routes/eventRoute");
 const adressRoute = require("./routes/adressRoute");
@@ -10,6 +11,7 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3003;
+const logger = require("./logger");
 
 app.use(
     cors({

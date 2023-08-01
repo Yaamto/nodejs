@@ -7,7 +7,7 @@ export class eventService {
         try {
             return await Event.create(data);
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -16,7 +16,7 @@ export class eventService {
         try {
             return await Event.find({}).populate("adress");
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -29,7 +29,7 @@ export class eventService {
             }
             return event;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -45,7 +45,7 @@ export class eventService {
             }
             return event;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -57,7 +57,7 @@ export class eventService {
                 return "event not available";
             }
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
     async getEventsDependsOnNameAndCapacityANdAdress(): Promise<IEvent[]> {

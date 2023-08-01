@@ -7,7 +7,7 @@ export class adressService {
         try {
             return await Adress.create(data);
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -16,7 +16,7 @@ export class adressService {
         try {
             return await Adress.find({});
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -25,11 +25,12 @@ export class adressService {
         try {
             const adress = await Adress.findById({ _id: id });
             if (!adress) {
+                logger.info(`Adress ${id} does not exist`);
                 return "adress not available";
             }
             return adress;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -41,11 +42,12 @@ export class adressService {
             //new:true, so the dats being returned, is the update one
             const adress = await Adress.findByIdAndUpdate({ _id: id }, data, { new: true });
             if (!adress) {
+                logger.info(`Adress ${id} does not exist`);
                 return "adress not available";
             }
             return adress;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -54,10 +56,11 @@ export class adressService {
         try {
             const adress = await Adress.findByIdAndDelete(id);
             if (!adress) {
+                logger.info(`Adress ${id} does not exist`);
                 return "adress not available";
             }
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 }
