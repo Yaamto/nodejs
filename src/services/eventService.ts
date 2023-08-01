@@ -1,5 +1,5 @@
 // Import module
-import { Event } from "../models/eventModel";
+import { Event, IEvent } from "../models/eventModel";
 
 export class eventService {
     // Create a event
@@ -59,6 +59,13 @@ export class eventService {
         } catch (error) {
             console.log(error);
         }
+    }
+    async getEventsDependsOnNameAndCapacityANdAdress(): Promise<IEvent[]> {
+        return Event.find({
+            name: { $regex: /apéro/ },
+            capacity: { $gte: 25 },
+            adress: { $elemMatch: { city: "Lyon" } },
+        }).populate("adress");
     }
 }
 

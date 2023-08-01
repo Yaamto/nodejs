@@ -53,6 +53,10 @@ class eventController {
         await eventServices.deleteEvent(id);
         res.send("event deleted");
     };
+    getEventsDependsOnNameAndCapacityANdAdress = async (req: Request, res: Response) => {
+        const events = await eventServices.getEventsDependsOnNameAndCapacityANdAdress();
+        res.send(events);
+    };
 }
 
 //export class
